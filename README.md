@@ -8,7 +8,7 @@ menagerie
 [![Build Status](https://img.shields.io/travis/akerl/menagerie.svg)](https://travis-ci.org/akerl/menagerie)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
-SHORT_DESCRIPTION
+Simple release management tool for controlling versioned artifacts on an instance.
 
 ## Usage
 
