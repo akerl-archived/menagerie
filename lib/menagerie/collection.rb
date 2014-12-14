@@ -26,12 +26,9 @@ module Menagerie
     private
 
     def rotate
-      existing = releases.reverse.sort
-      puts "Found releases: #{existing.map(&:id).join(',')}"
+      existing = releases.sort.reverse
       keepers = existing.shift(@options[:retention])
-      puts "Deleting releases: #{existing.map(&:id).join(',')}"
       existing.each(&:delete)
-      puts "Rotating releases: #{keepers.map(&:id).join(',')}"
       keepers.each(&:rotate)
     end
 
