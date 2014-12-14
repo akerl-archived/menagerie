@@ -37,7 +37,7 @@ module Menagerie
     def link(source, target)
       target_dir = Pathname.new(target).dirname
       relative_source = Pathname.new(source).relative_path_from(target_dir)
-      FileUtil.ln_s relative_source, target
+      FileUtils.ln_s relative_source, target
     end
 
     def rotate
