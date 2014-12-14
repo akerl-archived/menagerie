@@ -27,7 +27,7 @@ module Menagerie
 
     def rotate
       existing = releases.sort.reverse
-      keepers = existing.shift(@options[:retention])
+      keepers = existing.pop(@options[:retention])
       existing.each(&:delete)
       keepers.each(&:rotate)
     end
