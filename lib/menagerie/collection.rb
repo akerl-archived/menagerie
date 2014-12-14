@@ -36,7 +36,8 @@ module Menagerie
     end
 
     def link_latest
-      FileUtils.ln_sf releases.sort.first.path, "#{@paths[:latest]}"
+      FileUtils.rm_f @paths[:latest]
+      FileUtils.ln_sf releases.sort.first.path, @paths[:latest]
     end
 
     def default_paths
