@@ -14,7 +14,9 @@ module Menagerie
     end
 
     def artifacts
-      Dir.glob("#{@path}/*").map { |x| Artifact.new(path: x) }
+      Dir.glob("#{@path}/*").map do |x|
+        Artifact.new(path: x, paths: @config[:paths])
+      end
     end
 
     def <=>(other)
@@ -24,9 +26,9 @@ module Menagerie
 
     def create
       path = "#{@config[:paths][:releases]}/0"
-      FileUtils.mkdir path
+      FileUtils.mkdir_p path
       @config[:artifacts].each do |x|
-        artifact = Artifact.new artifact: x, paths: @paths
+        artifact = Artifact.new artifact: x, paths: @config[:paths]
         link artifact.path, "#{path}/#{x[:name]}"
       end
       path

@@ -4,8 +4,8 @@ module Menagerie
   ##
   # Connection object that contains releases
   class Collection
-    def initialize(params = {})
-      params = Cymbal.symbolize params
+    def initialize(params = nil)
+      params = Cymbal.symbolize(params || {})
       @paths = default_paths.merge(params[:paths] || {})
       @options = default_options.merge(params[:options] || {})
     end
@@ -18,7 +18,7 @@ module Menagerie
 
     def create(artifacts)
       rotate
-      Release.new artifacts: artifacts, paths: @paths
+      Release.new artifacts: Cymbal.symbolize(artifacts), paths: @paths
       reap if @options[:reap]
       link_latest
     end
@@ -27,8 +27,9 @@ module Menagerie
 
     def rotate
       existing = releases.reverse.sort
-      existing.pop(existing.size - @options[:retention]).each(&:delete)
-      existing.each(&:rotate)
+      keepers = existing.shift(@options[:retention])
+      existing.each(&:delete)
+      keepers.each(&:rotate)
     end
 
     def reap
