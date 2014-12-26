@@ -17,6 +17,13 @@ module Menagerie
       end
     end
 
+    def orphans
+      keepers = releases.map(&:artifacts).flatten.map(&:path).uniq
+      Dir.glob("#{@paths[:artifacts]}/*/*").reject do |artifact|
+        keepers.include? artifact
+      end
+    end
+
     def create(artifacts)
       rotate
       Release.new artifacts: Cymbal.symbolize(artifacts), paths: @paths
@@ -34,10 +41,7 @@ module Menagerie
     end
 
     def reap
-      keepers = releases.map(&:artifacts).flatten.map(&:path).uniq
-      Dir.glob("#{@paths[:artifacts]}/*/*").each do |artifact|
-        FileUtils.rm_f(artifact) unless keepers.include? artifact
-      end
+      orphans.each { |orphan| FileUtils.rm_f orphan }
     end
 
     def link_latest
