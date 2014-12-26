@@ -1,4 +1,5 @@
 require 'cymbal'
+require 'fileutils'
 
 module Menagerie
   ##
