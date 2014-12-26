@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
 
   s.files       = `git ls-files`.split
   s.test_files  = `git ls-files spec/*`.split
+  s.executables = ['menagerie']
 
   s.add_dependency 'cymbal', '~> 0.0.1'
 
