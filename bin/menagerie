@@ -10,3 +10,12 @@ data.releases.sort.each do |release|
     puts "  #{artifact.name}: #{artifact.version}"
   end
 end
+
+if data.orphans.size
+  puts "\nOrphans:"
+  artifacts = data.orphans.map { |x| x.split('/')[1..2] }.group_by(&:first)
+  artifacts.each do |artifact, versions|
+    puts "  #{artifact}"
+    versions.each { |version| puts "    #{version.last}" }
+  end
+end
