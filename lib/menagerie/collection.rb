@@ -13,7 +13,7 @@ module Menagerie
 
     def releases
       Dir.glob("#{@paths[:releases]}/*").map do |x|
-        Release.new path: x
+        Release.new path: x, paths: @paths
       end
     end
 
