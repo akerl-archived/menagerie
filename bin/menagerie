@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'menagerie'
+
+data = Menagerie.new
+
+data.releases.sort.each do |release|
+    puts "Release: #{release.id}"
+    release.artifacts.each do |artifact|
+        puts "  #{artifact.name}: #{artifact.version}"
+    end
+end
