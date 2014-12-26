@@ -34,6 +34,10 @@ module Menagerie
     end
 
     def reap
+      keepers = releases.map(&:artifacts).flatten.map(&:path).uniq
+      Dir.glob("#{@paths[:artifacts]}/*/*").each do |artifact|
+        FileUtils.rm_f(artifact) unless keepers.include? artifact
+      end
     end
 
     def link_latest
