@@ -9,22 +9,22 @@ module Menagerie
 
     def initialize(params = {})
       @config = params
-      @config[:artifact] ? create : parse
+      @logger = @config[:logger] || Menagerie.get_logger
+      parse @config.fetch(:artifact, {})
+      create if @config[:artifact]
     end
 
     private
 
     def create
-      @name, @version, url = @config[:artifact].values_at :name, :version, :url
-      @path = "#{@config[:paths][:artifacts]}/#{@name}/#{@version}"
-      download url, path unless File.exist? path
+      @logger.info "Downloading artifact: #{@path}"
+      download(@config[:artifact][:url], path) unless File.exist? path
       File.chmod(@config[:artifact][:mode], path) if @config[:artifact][:mode]
     end
 
-    def parse
-      link_path = @config[:path]
-      @name = Pathname.new(link_path).basename
-      @version = File.basename File.readlink(link_path)
+    def parse(params = {})
+      @name = params[:name] || Pathname.new(@config[:path]).basename
+      @version = params[:path] || File.basename(File.readlink(@config[:path]))
       @path = "#{@config[:paths][:artifacts]}/#{@name}/#{@version}"
     end
 

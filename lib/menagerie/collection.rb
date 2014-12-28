@@ -9,11 +9,12 @@ module Menagerie
       params = Cymbal.symbolize(params || {})
       @paths = default_paths.merge(params[:paths] || {})
       @options = default_options.merge(params[:options] || {})
+      @logger = Menagerie.get_logger(@options[:verbosity])
     end
 
     def releases
       Dir.glob("#{@paths[:releases]}/*").map do |x|
-        Release.new path: x, paths: @paths
+        Release.new path: x, paths: @paths, logger: @logger
       end
     end
 
@@ -26,7 +27,11 @@ module Menagerie
 
     def create(artifacts)
       rotate
-      Release.new artifacts: Cymbal.symbolize(artifacts), paths: @paths
+      Release.new(
+        artifacts: Cymbal.symbolize(artifacts),
+        paths: @paths,
+        logger: @logger
+      )
       reap if @options[:reap]
       link_latest
     end
@@ -41,12 +46,16 @@ module Menagerie
     end
 
     def reap
-      orphans.each { |orphan| FileUtils.rm_f orphan }
+      orphans.each do |orphan|
+        @logger.info "Reaping orphan: #{orphan}"
+        FileUtils.rm_f orphan
+      end
     end
 
     def link_latest
       FileUtils.rm_f @paths[:latest]
       FileUtils.ln_sf releases.sort.first.path, @paths[:latest]
+      @logger.debug "Linked latest release to #{@paths[:latest]}"
     end
 
     def default_paths
@@ -60,7 +69,8 @@ module Menagerie
     def default_options
       {
         retention: 5,
-        reap: true
+        reap: true,
+        verbose: true
       }
     end
   end
