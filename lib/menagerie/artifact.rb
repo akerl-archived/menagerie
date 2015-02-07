@@ -8,24 +8,24 @@ module Menagerie
     attr_reader :version, :name, :path
 
     def initialize(params = {})
-      @config = params
-      @logger = @config[:logger] || Menagerie.get_logger
-      parse @config.fetch(:artifact, {})
-      create if @config[:artifact]
+      @options = params
+      @logger = @options[:logger] || Menagerie.get_logger
+      parse @options.fetch(:artifact, {})
+      create if @options[:artifact]
     end
 
     private
 
     def create
       @logger.info "Downloading artifact: #{@path}"
-      download(@config[:artifact][:url], path) unless File.exist? path
-      File.chmod(@config[:artifact][:mode], path) if @config[:artifact][:mode]
+      download(@options[:artifact][:url], path) unless File.exist? path
+      File.chmod(@options[:artifact][:mode], path) if @options[:artifact][:mode]
     end
 
     def parse(params = {})
-      @name = params[:name] || Pathname.new(@config[:path]).basename
-      @version = params[:path] || File.basename(File.readlink(@config[:path]))
-      @path = "#{@config[:paths][:artifacts]}/#{@name}/#{@version}"
+      @name = params[:name] || Pathname.new(@options[:path]).basename
+      @version = params[:path] || File.basename(File.readlink(@options[:path]))
+      @path = "#{@options[:paths][:artifacts]}/#{@name}/#{@version}"
     end
 
     def download(url, path)

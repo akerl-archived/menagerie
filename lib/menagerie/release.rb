@@ -8,15 +8,15 @@ module Menagerie
     attr_reader :id, :base, :path
 
     def initialize(params = {})
-      @config = params
-      @logger = @config[:logger] || Menagerie.get_logger
-      @path = @config[:path] || create
+      @options = params
+      @logger = @options[:logger] || Menagerie.get_logger
+      @path = @options[:path] || create
       @base, @id = Pathname.new(@path).split.map(&:to_s)
     end
 
     def artifacts
       Dir.glob("#{@path}/*").map do |x|
-        Artifact.new path: x, paths: @config[:paths], logger: @logger
+        Artifact.new path: x, paths: @options[:paths], logger: @logger
       end
     end
 
@@ -27,11 +27,11 @@ module Menagerie
 
     def create
       @logger.info "Creating release: #{@path}"
-      path = "#{@config[:paths][:releases]}/0"
+      path = "#{@options[:paths][:releases]}/0"
       FileUtils.mkdir_p path
-      @config[:artifacts].each do |x|
+      @options[:artifacts].each do |x|
         artifact = Artifact.new(
-          artifact: x, paths: @config[:paths], logger: @logger
+          artifact: x, paths: @options[:paths], logger: @logger
         )
         link artifact.path, "#{path}/#{x[:name]}"
       end

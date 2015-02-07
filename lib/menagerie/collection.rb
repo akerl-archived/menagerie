@@ -5,7 +5,7 @@ module Menagerie
   ##
   # Connection object that contains releases
   class Collection
-    def initialize(params = nil)
+    def initialize(params = {})
       params = Cymbal.symbolize(params || {})
       @paths = default_paths.merge(params[:paths] || {})
       @options = default_options.merge(params[:options] || {})
