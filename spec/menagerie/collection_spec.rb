@@ -68,9 +68,7 @@ describe Menagerie::Collection do
     it 'rotates existing releases' do
       collection = Menagerie.new(paths: paths)
       expect(collection.releases.size).to eql 3
-      system('ls -la spec/examples/scratch/releases/0')
       collection.create(artifacts)
-      system('ls -la spec/examples/scratch/releases/0')
       expect(collection.releases.size).to eql 4
     end
 
@@ -89,6 +87,7 @@ describe Menagerie::Collection do
     it 'creates a new release' do
       collection = Menagerie.new(paths: paths)
       collection.create(artifacts)
+      p collection.releases
       expect(collection.releases.first.artifacts.size).to eql 2
     end
   end
