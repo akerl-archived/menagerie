@@ -26,8 +26,8 @@ module Menagerie
     end
 
     def create
-      @logger.info "Creating release: #{@path}"
       path = "#{@options[:paths][:releases]}/0"
+      @logger.info "Creating release: #{path}"
       FileUtils.mkdir_p path
       @options[:artifacts].each do |x|
         artifact = Artifact.new(
