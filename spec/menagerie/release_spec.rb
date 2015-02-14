@@ -14,12 +14,6 @@ describe Menagerie::Release do
       latest: "#{base_path}/latest"
     }
   end
-  let(:artifacts) do
-    [
-      { name: 'a', version: '2.0.0', url: 'https://goo.gl/pWew5I' },
-      { name: 'b', version: '3.0.0', url: 'https://goo.gl/fkNplq' }
-    ]
-  end
   let(:release) { Menagerie.new(paths: paths).releases.first }
 
   it 'has an id attribute' do

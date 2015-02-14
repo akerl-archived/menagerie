@@ -1,4 +1,3 @@
-require 'pathname'
 require 'open-uri'
 
 module Menagerie
@@ -28,7 +27,7 @@ module Menagerie
     end
 
     def parse
-      @name = Pathname.new(@options[:path]).basename
+      @name = File.basename @options[:path]
       @version = File.basename File.readlink(@options[:path])
     end
 
