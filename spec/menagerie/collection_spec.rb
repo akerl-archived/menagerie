@@ -44,7 +44,7 @@ describe Menagerie::Collection do
     end
   end
 
-  describe '#create' do
+  describe '#add_release' do
     before(:each) do
       FileUtils.rm_rf 'spec/examples/scratch'
       FileUtils.cp_r 'spec/examples/existing', 'spec/examples/scratch'
@@ -68,23 +68,23 @@ describe Menagerie::Collection do
 
     it 'rotates existing releases' do
       expect(default_collection.releases.size).to eql 3
-      default_collection.create(artifacts)
+      default_collection.add_release(artifacts)
       expect(default_collection.releases.size).to eql 4
     end
 
     it 'retains a set number of old releases' do
-      10.times { default_collection.create(artifacts) }
+      10.times { default_collection.add_release(artifacts) }
       expect(default_collection.releases.size).to eql 6
     end
 
     it 'can be configured to allow a differnet number of releases' do
       collection = Menagerie.new(paths: paths, options: { retention: 8 })
-      10.times { collection.create(artifacts) }
+      10.times { collection.add_release(artifacts) }
       expect(collection.releases.size).to eql 9
     end
 
     it 'creates a new release' do
-      default_collection.create(artifacts)
+      default_collection.add_release(artifacts)
       expect(default_collection.releases.first.artifacts.size).to eql 2
     end
 
@@ -94,7 +94,7 @@ describe Menagerie::Collection do
       FileUtils.touch "#{base_path}/artifacts/d/0.0.4"
       expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_truthy
       expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_truthy
-      default_collection.create(artifacts)
+      default_collection.add_release(artifacts)
       expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_falsey
       expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_falsey
     end
@@ -106,7 +106,7 @@ describe Menagerie::Collection do
       expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_truthy
       expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_truthy
       collection = Menagerie.new(paths: paths, options: { reap: false })
-      collection.create(artifacts)
+      collection.add_release(artifacts)
       expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_truthy
       expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_truthy
     end

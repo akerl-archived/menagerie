@@ -25,7 +25,7 @@ module Menagerie
       end
     end
 
-    def create(artifacts)
+    def add_release(artifacts)
       rotate
       Release.new(
         artifacts: Cymbal.symbolize(artifacts),
