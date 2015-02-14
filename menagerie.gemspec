@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'menagerie'
-  s.version     = '0.1.3'
+  s.version     = '1.0.0'
   s.date        = Time.now.strftime("%Y-%m-%d")
 
   s.summary     = ''
