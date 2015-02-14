@@ -87,7 +87,6 @@ describe Menagerie::Collection do
     it 'creates a new release' do
       collection = Menagerie.new(paths: paths)
       collection.create(artifacts)
-      p collection.releases
       expect(collection.releases.first.artifacts.size).to eql 2
     end
   end

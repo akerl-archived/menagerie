@@ -15,7 +15,7 @@ module Menagerie
     def releases
       Dir.glob("#{@paths[:releases]}/*").map do |x|
         Release.new path: x, paths: @paths, logger: @logger
-      end
+      end.sort
     end
 
     def orphans
