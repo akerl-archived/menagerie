@@ -11,7 +11,7 @@ module Menagerie
       @options = params
       @logger = @options[:logger] || Menagerie.get_logger
       @path = @options[:path] || create
-      @base, @id = Pathname.new(@path).split.map(&:to_s)
+      parse_path
     end
 
     def artifacts
@@ -24,6 +24,20 @@ module Menagerie
       return nil unless other.is_a? Release
       @id.to_i <=> other.id.to_i
     end
+
+    def rotate
+      old_path = @path
+      @path = "#{@base}/#{@id.to_i + 1}"
+      FileUtils.mv old_path, @path
+      parse_path
+    end
+
+    def delete
+      @logger.info "Deleting release: #{@path}"
+      FileUtils.rm_r @path
+    end
+
+    private
 
     def create
       path = "#{@options[:paths][:releases]}/0"
@@ -44,13 +58,8 @@ module Menagerie
       FileUtils.ln_s relative_source, target
     end
 
-    def rotate
-      FileUtils.mv @path, "#{@base}/#{@id.to_i + 1}"
-    end
-
-    def delete
-      @logger.info "Deleting release: #{@path}"
-      FileUtils.rm_r @path
+    def parse_path
+      @base, @id = Pathname.new(@path).split.map(&:to_s)
     end
   end
 end
