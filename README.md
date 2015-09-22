@@ -3,9 +3,9 @@ menagerie
 
 [![Gem Version](https://img.shields.io/gem/v/menagerie.svg)](https://rubygems.org/gems/menagerie)
 [![Dependency Status](https://img.shields.io/gemnasium/akerl/menagerie.svg)](https://gemnasium.com/akerl/menagerie)
-[![Code Climate](https://img.shields.io/codeclimate/github/akerl/menagerie.svg)](https://codeclimate.com/github/akerl/menagerie)
-[![Coverage Status](https://img.shields.io/coveralls/akerl/menagerie.svg)](https://coveralls.io/r/akerl/menagerie)
-[![Build Status](https://img.shields.io/travis/akerl/menagerie.svg)](https://travis-ci.org/akerl/menagerie)
+[![Build Status](https://img.shields.io/circleci/project/akerl/menagerie.svg)](https://circleci.com/gh/akerl/menagerie)
+[![Coverage Status](https://img.shields.io/codecov/c/github/akerl/menagerie.svg)](https://codecov.io/github/akerl/menagerie)
+[![Code Quality](https://img.shields.io/codacy/5e3980050b4b4d55bbb6443027d4f517.svg)](https://www.codacy.com/app/akerl/menagerie)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 Simple release management tool for controlling versioned artifacts
