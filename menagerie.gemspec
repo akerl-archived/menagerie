@@ -10,8 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/akerl/menagerie'
   s.license     = 'MIT'
 
-  s.files       = `git ls-files`.split
-  s.test_files  = `git ls-files spec/*`.split
+  s.files       = `git ls-files lib/`.split
   s.executables = ['menagerie']
 
   s.add_dependency 'cymbal', '~> 1.0.0'
