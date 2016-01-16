@@ -35,7 +35,7 @@ describe Menagerie::Release do
 
   describe '#artifacts' do
     it 'is an array of Artifacts' do
-      expect(release.artifacts).to all(be_a Menagerie::Artifact)
+      expect(release.artifacts).to all(be_a(Menagerie::Artifact))
     end
   end
 
@@ -50,9 +50,9 @@ describe Menagerie::Release do
 
   describe '#delete' do
     it 'deletes the release' do
-      expect(Dir.exist? release.path).to be_truthy
+      expect(Dir.exist?(release.path)).to be_truthy
       release.delete
-      expect(Dir.exist? release.path).to be_falsey
+      expect(Dir.exist?(release.path)).to be_falsey
     end
   end
 end

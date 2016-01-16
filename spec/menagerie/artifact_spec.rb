@@ -35,9 +35,9 @@ describe Menagerie::Artifact do
   end
 
   it 'is created if it does not exist' do
-    expect(File.exist? "#{base_path}/artifacts/a/2.0.0").to be_falsey
+    expect(File.exist?("#{base_path}/artifacts/a/2.0.0")).to be_falsey
     params = { paths: paths, artifact: new_artifact }
     expect { Menagerie::Artifact.new params }.to produce_output
-    expect(File.exist? "#{base_path}/artifacts/a/2.0.0").to be_truthy
+    expect(File.exist?("#{base_path}/artifacts/a/2.0.0")).to be_truthy
   end
 end

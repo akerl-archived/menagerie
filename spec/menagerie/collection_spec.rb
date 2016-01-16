@@ -92,23 +92,23 @@ describe Menagerie::Collection do
       FileUtils.touch "#{base_path}/artifacts/a/0.0.4"
       FileUtils.mkdir "#{base_path}/artifacts/d"
       FileUtils.touch "#{base_path}/artifacts/d/0.0.4"
-      expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_truthy
-      expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_truthy
+      expect(File.exist?("#{base_path}/artifacts/a/0.0.4")).to be_truthy
+      expect(File.exist?("#{base_path}/artifacts/d/0.0.4")).to be_truthy
       default_collection.add_release(artifacts)
-      expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_falsey
-      expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_falsey
+      expect(File.exist?("#{base_path}/artifacts/a/0.0.4")).to be_falsey
+      expect(File.exist?("#{base_path}/artifacts/d/0.0.4")).to be_falsey
     end
 
     it 'can be configure to not reap orphaned artifacts' do
       FileUtils.touch "#{base_path}/artifacts/a/0.0.4"
       FileUtils.mkdir "#{base_path}/artifacts/d"
       FileUtils.touch "#{base_path}/artifacts/d/0.0.4"
-      expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_truthy
-      expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_truthy
+      expect(File.exist?("#{base_path}/artifacts/a/0.0.4")).to be_truthy
+      expect(File.exist?("#{base_path}/artifacts/d/0.0.4")).to be_truthy
       collection = Menagerie.new(paths: paths, options: { reap: false })
       collection.add_release(artifacts)
-      expect(File.exist? "#{base_path}/artifacts/a/0.0.4").to be_truthy
-      expect(File.exist? "#{base_path}/artifacts/d/0.0.4").to be_truthy
+      expect(File.exist?("#{base_path}/artifacts/a/0.0.4")).to be_truthy
+      expect(File.exist?("#{base_path}/artifacts/d/0.0.4")).to be_truthy
     end
   end
 end
