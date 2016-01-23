@@ -26,15 +26,15 @@ The gem provides a simple script that will print out the contents of an existing
 Release: 0
   initrd: 0.0.36
   kernel: 3.19-rc7_1
-  vm_root: 0.0.73
+  rootfs: 0.0.73
 Release: 1
   initrd: 0.0.36
   kernel: 3.19-rc7_1
-  vm_root: 0.0.71
+  rootfs: 0.0.71
 Release: 2
   initrd: 0.0.36
   kernel: 3.19-rc6_1
-  vm_root: 0.0.69
+  rootfs: 0.0.69
 
 Orphans:
   kernel
