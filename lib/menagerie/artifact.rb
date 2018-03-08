@@ -34,7 +34,9 @@ module Menagerie
     def download(url, path)
       FileUtils.mkdir_p File.dirname(path)
       File.open(path, 'wb') do |fh|
-        open(url, 'rb') { |request| fh.write request.read }
+        open(url, 'rb') do |request| # rubocop:disable Security/Open
+          fh.write request.read
+        end
       end
     end
   end
