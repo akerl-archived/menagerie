@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files lib/`.split
   s.executables = ['menagerie']
 
-  s.add_dependency 'cymbal', '~> 1.0.0'
+  s.add_dependency 'cymbal', '~> 2.0.0'
 
   s.add_development_dependency 'codecov', '~> 0.1.1'
   s.add_development_dependency 'fuubar', '~> 2.3.0'
