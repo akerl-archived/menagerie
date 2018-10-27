@@ -13,14 +13,14 @@ module Menagerie
     end
 
     def releases
-      Dir.glob("#{@paths[:releases]}/*").map do |x|
+      Dir.glob("#{@paths[:releases]}/*").sort.map do |x|
         Release.new path: x, paths: @paths, logger: @logger
       end.sort
     end
 
     def orphans
       keepers = releases.map(&:artifacts).flatten.map(&:path).uniq
-      Dir.glob("#{@paths[:artifacts]}/*/*").reject do |artifact|
+      Dir.glob("#{@paths[:artifacts]}/*/*").sort.reject do |artifact|
         keepers.include? artifact
       end
     end

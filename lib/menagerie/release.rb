@@ -15,7 +15,7 @@ module Menagerie
     end
 
     def artifacts
-      Dir.glob("#{@path}/*").map do |x|
+      Dir.glob("#{@path}/*").sort.map do |x|
         Artifact.new path: x, paths: @options[:paths], logger: @logger
       end
     end
